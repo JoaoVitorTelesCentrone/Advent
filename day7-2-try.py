@@ -1009,7 +1009,24 @@ test = [
 
 strenght = {}
 
+fiveOfKind = []
+fourOfKind = []
+threeOfKind = []
+fullHouse = []
+twoPair = []
+pair = []
+highhand = []
+
 allCards = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']
+cartas_dict = {'A': 14, 'K': 13, 'Q': 12, 'J': 11, 'T': 10, '9': 9, '8': 8, '7': 7, '6': 6, '5': 5, '4': 4, '3': 3, '2': 2}
+
+def orderArrays(array): 
+    firstCard = ''
+    for hand in array:
+        firstCard = hand[0]
+        value = cartas_dict[firstCard]
+        print(value)
+    print(firstCard)
 
 def treat(hand, meu_dict, bid): 
     contagem_2 = 0
@@ -1023,44 +1040,52 @@ def treat(hand, meu_dict, bid):
     if valor == 5:
         key = f'{bid} Five Of Kind'
         strenght[key] = 7
+        fiveOfKind.append(hand)
         # print(bid, 'Five of kind')
     elif valor == 4:
         key = f'{bid} four of kind '
         strenght[key] = 6
+        fourOfKind.append(hand)
         # print(bid, 'Four of kind')
     elif contagem_3 == 1 and contagem_2 == 1:
         key = f'{bid} full House'
         strenght[key] = 5
-        # print(bid, 'Full house')
+        fullHouse.append(hand)
     elif contagem_3 == 1:
         key = f'{bid} three Of Kind'
         strenght[key] = 4
-        # print(bid, 'Three of kind')
+        threeOfKind.append(hand)
+
     elif contagem_2 == 2:
         key = f'{bid} two Pair'
         strenght[key] = 3
-        # print(bid,'Two pair')
+        twoPair.append(hand)
+
     elif contagem_2 == 1: 
         key = f'{bid} pair'
         strenght[key] = 2
-        # print(bid, 'Pair')
+        pair.append(hand)
     else:
         key = f'{bid} high Card'
         strenght[key] = 1
-        # print(bid, 'high card')
+        highhand.append(hand)
 
+    # print(fiveOfKind, fourOfKind, threeOfKind, fullHouse, twoPair, pair, highhand)
+    orderArrays(threeOfKind)
     orderHands(strenght)
 
 
 def orderHands(hands):
     sorted_strength = sorted(strenght.items(), key=lambda x: x[1], reverse=True)
 
-    print(sorted_strength)
+    # print(sorted_strength)
 
 # for 
 for game in test:
     gameSplit = game.split(' ')
     gameHand = gameSplit[0]
+    firstCard = gameHand[0]
+    
     bid = gameSplit[1]
     dict = {}
 
@@ -1071,6 +1096,7 @@ for game in test:
             dict[card] = cardCount
 
     treat(gameHand, dict, bid)
+
 
 
 
