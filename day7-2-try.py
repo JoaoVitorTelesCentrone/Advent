@@ -1020,25 +1020,42 @@ highhand = []
 allCards = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']
 cartas_dict = {'A': 14, 'K': 13, 'Q': 12, 'J': 11, 'T': 10, '9': 9, '8': 8, '7': 7, '6': 6, '5': 5, '4': 4, '3': 3, '2': 2}
 
-bigArray = []
+# def process_and_compare(test_data):
+#     hands_data = []
 
+#     for hand_data in test_data:
+#         hand, bid = hand_data.split()
+#         hand_array = list(hand)
+#         bid_value = int(bid)
 
-def orderArrays(array): 
-    firstCard = ''
-    sortedArray = []
-    for hand in array:
-        for i in range(len(hand)):
-            firstCard[i] = hand[i]
-            if firstCard[i] == firstCard[i+1]:
-                for j in range(i + 1, len(hand)):
-                    currentCard = hand[j]
-        firstCard = hand[0] 
-        value = cartas_dict[firstCard]
-        bigArray.append(value)
-    
-        
-    print(bigArray)
+#         hands_data.append({
+#             'hand': tuple(hand_array),
+#             'bid': bid_value
+#         })
 
+#     # Sort hands_data based on bid values
+#     hands_data.sort(key=lambda x: x['bid'])
+
+#     for i in range(len(hands_data) - 1):
+#         hand1 = hands_data[i]['hand']
+#         hand2 = hands_data[i + 1]['hand']
+
+#         # Compare hands character by character
+#         for char1, char2 in zip(hand1, hand2):
+#             if char1 < char2:
+#                 print(f"Hand 1 ({hand1}) is higher than Hand 2 ({hand2})")
+#                 break
+#             elif char1 > char2:
+#                 print(f"Hand 2 ({hand2}) is higher than Hand 1 ({hand1})")
+#                 break
+#         else:
+#             # If the characters are the same, compare based on bid values
+#             if hands_data[i]['bid'] < hands_data[i + 1]['bid']:
+#                 print(f"Hand 1 ({hand1}) is higher than Hand 2 ({hand2}) based on bid")
+#             elif hands_data[i]['bid'] > hands_data[i + 1]['bid']:
+#                 print(f"Hand 2 ({hand2}) is higher than Hand 1 ({hand1}) based on bid")
+#             else:
+#                 print(f"Both hands ({hand1} and {hand2}) are equal")
 
 def treat(hand, meu_dict, bid): 
     contagem_2 = 0
@@ -1052,7 +1069,7 @@ def treat(hand, meu_dict, bid):
     if valor == 5:
         key = f'{hand} Five Of Kind'
         strenght[7] = key
-        fiveOfKind.append(hand)
+        fiveOfKind.append((hand, bid))
         # print(hand, 'Five of kind')
     elif valor == 4:
         key = f'{hand} four of kind '
@@ -1066,14 +1083,13 @@ def treat(hand, meu_dict, bid):
     elif contagem_3 == 1:
         key = f'{hand} three Of Kind'
         strenght[4] = key
-        threeOfKind.append(hand)
+        threeOfKind.append((hand, bid))
 
     elif contagem_2 == 2:
         key = f'{hand} two Pair'
         strenght[3] = key
         twoPair.append(hand)
         
-
     elif contagem_2 == 1: 
         key = f'{hand} pair'
         strenght[2] = key
@@ -1083,21 +1099,8 @@ def treat(hand, meu_dict, bid):
         strenght[1] = key
         highhand.append(hand)
 
-    # print(fiveOfKind, fourOfKind, threeOfKind, fullHouse, twoPair, pair, highhand)
-    # orderArrays(fiveOfKind)
-    # orderArrays(fourOfKind)
-    # orderArrays(fullHouse)
-    orderArrays(threeOfKind)
-    orderArrays(twoPair)
-    orderArrays(pair)
-    # orderArrays(highhand)
-    # orderHands(strenght)
-
-
-def orderHands(hands):
-    sorted_strength = sorted(strenght.items(), key=lambda x: x[1], reverse=True)
-
-    print(hands)
+    print(fiveOfKind, fourOfKind, threeOfKind, fullHouse, twoPair, pair, highhand)
+    # process_and_compare(threeOfKind)
 
 # for 
 for game in test:
